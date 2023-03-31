@@ -1,6 +1,15 @@
 function kk() {
     let licznikruchow = 0;
     let flagakoniec = false;
+    var komputer = false;
+    let pola = document.getElementsByClassName('komorka');
+    var bk = document.getElementById("k");
+    var bg = document.getElementById("g");
+    bk.addEventListener("click", zkomputerem);
+    bg.addEventListener("click", zgraczem);
+    for (const pole of pola) {
+        pole.style.visibility = 'hidden';
+    } 
     let gracze = [
         {
             name: 'kolko'
@@ -24,10 +33,7 @@ function kk() {
     let gracz1 = gracze[0];
     let gracz2 = gracze[1];
 
-    wyswietlaktualnegogracza();
-
     let elementpole = document.querySelector('.pole');
-
     elementpole.addEventListener('click', ruch)
 
     function wyswietlaktualnegogracza() {
@@ -35,26 +41,84 @@ function kk() {
         status.innerText = `aktualny gracz: ${gracz1.name}`;
     }
 
+    function zkomputerem() {
+        komputer = true;
+        const buttons = document.getElementsByTagName("button");
+        for (const button of buttons) {
+            button.disabled = true;
+        }     
+        for (const pole of pola) {
+            pole.style.visibility = 'visible';
+        } 
+    }
+    function zgraczem() {
+        komputer = false;
+        const buttons = document.getElementsByTagName("button");
+        for (const button of buttons) {
+            button.disabled = true;
+        }
+        for (const pole of pola) {
+            pole.style.visibility = 'visible';
+        } 
+    }
+
+
     function ruch(event) {
-        if (!flagakoniec && czypusty(event.target) && czypoprawny(event.target)) {
-            event.target.classList.add(gracz1.name);
-            event.target.classList.remove(gracz2.name);
+        if (komputer == false) {
+            wyswietlaktualnegogracza();
+            if (!flagakoniec && czypusty(event.target) && czypoprawny(event.target)) {
+                event.target.classList.add(gracz1.name);
+                event.target.classList.remove(gracz2.name);
+                if (sprawdz()) {
+                    document.querySelector('.wynik').innerText = `wygrana: ${gracz1.name}`;
+                    finish = true;
+                    return;
+                }
+                if (licznikruchow === 8) {
+                    document.querySelector('.wynik').innerText = 'remis'
+                }
+                licznikruchow++;
+                gracz2 = gracze[((Math.abs(licznikruchow - 1)) % 2)];
+                gracz1 = gracze[(licznikruchow % 2)];
+                wyswietlaktualnegogracza();
+            }
+        }
+        else {
+            let status = document.querySelector('.status');
+            status.innerText = ``;
+            if (!flagakoniec && czypusty(event.target) && czypoprawny(event.target)) {
+                event.target.classList.add('kolko');
+                event.target.classList.remove('krzyzyk');
+                if (sprawdz()) {
+                    document.querySelector('.wynik').innerText = `wygrana: ${gracz1.name}`;
+                    finish = true;
+                    return;
+                }
+                licznikruchow++;
+                ruch2(pola);
+            }
+        }
+
+    }
+    function ruch2(pola) {
+        if (licznikruchow <8) {
+            do {
+                var pole = pola[Math.floor(Math.random() * 8)];
+            } while (flagakoniec || !czypusty(pole) || !czypoprawny(pole));
+            pole.classList.add('krzyzyk');
+            pole.classList.remove('kolko');
             if (sprawdz()) {
-                document.querySelector('.wynik').innerText = `wygrana: ${gracz1.name}`;
+                document.querySelector('.wynik').innerText = `wygrana: ${gracz2.name}`;
                 finish = true;
                 return;
             }
-            if(licznikruchow===8) {
+            if (licznikruchow === 8) {
                 document.querySelector('.wynik').innerText = 'remis'
             }
             licznikruchow++;
-            gracz2 = gracze[((Math.abs(licznikruchow - 1)) % 2)];
-            gracz1 = gracze[(licznikruchow % 2)];
-            wyswietlaktualnegogracza();
-        }
-
-
+        }     
     }
+    
 
     function sprawdz() {
         let komorki = Array.from(document.querySelectorAll('.komorka'))
@@ -70,7 +134,12 @@ function kk() {
                 }
             });
 
-        let znak = gracz1.name;
+        if (licznikruchow % 2 == 0) {
+            var znak = gracz1.name
+        }
+        else {
+            var znak = gracz2.name
+        }
         let wygrane = kombinacje.map(function (linia) {
             return czywygrana(linia, komorki, znak);
         })
