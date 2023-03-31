@@ -7,6 +7,8 @@ function kk() {
     var bg = document.getElementById("g");
     bk.addEventListener("click", zkomputerem);
     bg.addEventListener("click", zgraczem);
+    let status = document.querySelector('.status');
+    status.style.visibility = 'hidden';
     for (const pole of pola) {
         pole.style.visibility = 'hidden';
     } 
@@ -37,7 +39,6 @@ function kk() {
     elementpole.addEventListener('click', ruch)
 
     function wyswietlaktualnegogracza() {
-        let status = document.querySelector('.status');
         status.innerText = `aktualny gracz: ${gracz1.name}`;
     }
 
@@ -59,7 +60,8 @@ function kk() {
         }
         for (const pole of pola) {
             pole.style.visibility = 'visible';
-        } 
+        }
+        status.style.visibility = 'visible';
     }
 
 
