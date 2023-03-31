@@ -1,0 +1,28 @@
+*{
+    font-family: Arial;
+}
+.status, .wynik {
+    font-size:20px;
+
+}
+.wiersz {
+    display:flex;
+}
+
+.komorka {
+    width:100px;
+    height:100px;
+    border:2px solid black;
+}
+
+.komorka:hover{
+    background-color: green;
+}
+
+.kolko {
+    background-image: url(kolko.png);
+}
+
+.krzyzyk {
+    background-image: url(krzyzyk.png);
+}
