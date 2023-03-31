@@ -140,6 +140,9 @@ function kk() {
         else {
             var znak = gracz2.name
         }
+        if (komputer == false) {
+            var znak = gracz1.name
+        }
         let wygrane = kombinacje.map(function (linia) {
             return czywygrana(linia, komorki, znak);
         })
