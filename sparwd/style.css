@@ -1,4 +1,4 @@
-@media screen and (min-width: 641px) {
+/* @media screen and (min-width: 641px) {
     header {
     padding : 20px;
     background-color : #f8f8f8;
@@ -81,6 +81,31 @@
     }
     section {
     padding : 10px;
+    }
+    img {
+    max-width : 100%;
+    height : auto;
+    }
+    } */
+
+header {
+    padding : 20px;
+    background-color : #f8f8f8;
+    }
+    nav {
+    display : flex;
+    justify-content : center;
+    background-color : #e0e0e0;
+    }
+    nav ul {
+    display : flex;
+    list-style-type : none;
+    }
+    nav li {
+    padding : 10px;
+    }
+    section {
+    padding : 20px;
     }
     img {
     max-width : 100%;
