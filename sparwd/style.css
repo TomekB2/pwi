@@ -18,6 +18,10 @@
     section {
     padding : 20px;
     }
+    .responsive {
+  width: 100%;
+  height: auto;
+}
     }
   @media screen and (min-width: 640px) {
     header {
@@ -46,6 +50,10 @@
     section {
     padding : 10px;
     }
+      .responsive {
+  width: 100%;
+  height: auto;
+}
   }
 @media screen and (min-width: 480px) {
     header {
@@ -74,4 +82,8 @@
     section {
     padding : 10px;
     }
+    .responsive {
+  width: 100%;
+  height: auto;
+}
     }
